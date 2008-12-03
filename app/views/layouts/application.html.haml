@@ -3,10 +3,8 @@
   %head
     %meta{"http-equiv"=>"Content-type", :content=>"text/html; charset=utf-8"}/
     %title= @page_title || default_page_title
-    - @stylesheets.uniq.each do |stylesheet|
-      = stylesheet_link_tag stylesheet
-    - @javascripts.uniq.each do |javascript|
-      = javascript_include_tag javascript
+    = stylesheet_link_tag  @stylesheets.uniq.join(','), :cache => true
+    = javascript_include_tag @javascripts.uniq.join(','), :cache => true
     /[if lt IE 7]
       %script{:type=>"text/javascript", :src=>"/admin/javascripts/pngfix.js"}
     - if @content_for_page_scripts
