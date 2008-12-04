@@ -3,8 +3,10 @@
   %head
     %meta{"http-equiv"=>"Content-type", :content=>"text/html; charset=utf-8"}/
     %title= @page_title || default_page_title
-    = stylesheet_link_tag  @stylesheets.uniq.join(','), :cache => true
-    = javascript_include_tag @javascripts.uniq.join(','), :cache => true
+    - bundle :name => asset_bundle_name(@stylesheets) do
+      = stylesheet_link_tag  @stylesheets.uniq, :cache => true
+    - bundle :name => asset_bundle_name(@javascripts) do
+      = javascript_include_tag @javascripts.uniq, :cache => true
     /[if lt IE 7]
       %script{:type=>"text/javascript", :src=>"/admin/javascripts/pngfix.js"}
     - if @content_for_page_scripts

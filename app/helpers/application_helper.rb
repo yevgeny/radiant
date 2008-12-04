@@ -1,6 +1,7 @@
 module ApplicationHelper
   include LocalTime
   include Admin::RegionsHelper
+  require 'digest/md5'
   
   def config
     Radiant::Config
@@ -148,6 +149,11 @@ module ApplicationHelper
   def filter_options_for_select(selected=nil)
     options_for_select([['<none>', '']] + TextFilter.descendants.map { |s| s.filter_name }.sort, selected)
   end
+
+  def asset_bundle_name filenames
+      Digest::MD5.hexdigest(filenames.join(';'))
+  end
+
   
   private
   
